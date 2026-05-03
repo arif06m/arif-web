@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Access Portal</title>
+    <title>Professional Dashboard Portal</title>
     <style>
         * {
             margin: 0;
@@ -14,19 +14,18 @@
 
         body {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
             color: white;
+            overflow-x: hidden;
         }
 
-        /* Glass Card Design */
+        /* --- Auth Section --- */
         .auth-container {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 30px;
             padding: 40px;
@@ -34,134 +33,129 @@
             max-width: 400px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             text-align: center;
+            transition: 0.5s ease;
         }
 
-        h2 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #60a5fa, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        p {
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
+        h2 { font-size: 26px; margin-bottom: 20px; color: #60a5fa; }
         input {
             width: 100%;
-            padding: 14px 20px;
+            padding: 14px;
+            margin-bottom: 15px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
+            border-radius: 12px;
             color: white;
-            font-size: 16px;
             outline: none;
-            transition: 0.3s;
-        }
-
-        input:focus {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: #60a5fa;
-            box-shadow: 0 0 15px rgba(96, 165, 250, 0.3);
         }
 
         .btn {
             width: 100%;
-            padding: 15px;
-            background: #ffffff;
-            color: #000;
+            padding: 14px;
+            background: white;
+            color: black;
             border: none;
-            border-radius: 15px;
-            font-size: 16px;
-            font-weight: 600;
+            border-radius: 12px;
+            font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
-            margin-top: 10px;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+        /* --- Dashboard Section --- */
+        #dashboard {
+            display: none;
+            width: 100%;
+            max-width: 1000px;
+            padding: 20px;
+            animation: fadeIn 0.8s ease forwards;
         }
 
-        .toggle-link {
-            margin-top: 25px;
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.5);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .toggle-link span {
-            color: #60a5fa;
-            cursor: pointer;
-            font-weight: bold;
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            margin-bottom: 30px;
         }
 
-        #signup-form { display: none; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 25px;
+            text-align: left;
+        }
+
+        .stat-card h3 { color: rgba(255, 255, 255, 0.6); font-size: 14px; margin-bottom: 10px; }
+        .stat-card p { font-size: 24px; font-weight: bold; color: #60a5fa; }
     </style>
 </head>
 <body>
 
-    <div class="auth-container">
-        <!-- Login Form -->
-        <div id="login-form">
-            <h2>Welcome Back!</h2>
-            <p>Login to your account</p>
-            <div class="input-group">
-                <input type="text" placeholder="Username or Email">
+    <!-- Login Form Section -->
+    <div class="auth-container" id="auth-box">
+        <h2>Member Portal</h2>
+        <p style="margin-bottom: 20px; color: rgba(255,255,255,0.5);">Please sign in to continue</p>
+        <input type="text" id="user" placeholder="Username">
+        <input type="password" placeholder="Password">
+        <button class="btn" onclick="login()">Login</button>
+    </div>
+
+    <!-- Professional Dashboard Section -->
+    <div id="dashboard">
+        <div class="nav-bar">
+            <h3>Welcome, User</h3>
+            <button class="btn" style="width: auto; padding: 10px 20px;" onclick="location.reload()">Logout</button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Visitors</h3>
+                <p>1,240</p>
             </div>
-            <div class="input-group">
-                <input type="password" placeholder="Password">
+            <div class="stat-card">
+                <h3>Active Projects</h3>
+                <p>12</p>
             </div>
-            <button class="btn" onclick="handleAccess()">Login</button>
-            <div class="toggle-link">
-                Don't have an account? <span onclick="toggleForms('signup')">Sign Up</span>
+            <div class="stat-card">
+                <h3>New Messages</h3>
+                <p>5</p>
+            </div>
+            <div class="stat-card">
+                <h3>System Status</h3>
+                <p style="color: #4ade80;">Online</p>
             </div>
         </div>
 
-        <!-- Sign Up Form -->
-        <div id="signup-form">
-            <h2>Create Account</h2>
-            <p>Enter your details to register</p>
-            <div class="input-group">
-                <input type="text" placeholder="Full Name">
-            </div>
-            <div class="input-group">
-                <input type="email" placeholder="Email Address">
-            </div>
-            <div class="input-group">
-                <input type="password" placeholder="New Password">
-            </div>
-            <button class="btn" onclick="handleAccess()">Sign Up</button>
-            <div class="toggle-link">
-                Already have an account? <span onclick="toggleForms('login')">Login</span>
-            </div>
+        <div style="margin-top: 30px; background: rgba(255,255,255,0.03); padding: 30px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1);">
+            <h2 style="color: white; font-size: 20px;">Recent Activity</h2>
+            <p style="color: rgba(255,255,255,0.6); margin-top: 10px;">• Dashboard successfully loaded.</p>
+            <p style="color: rgba(255,255,255,0.6); margin-top: 5px;">• Security protocols are active.</p>
         </div>
     </div>
 
     <script>
-        function toggleForms(type) {
-            const login = document.getElementById('login-form');
-            const signup = document.getElementById('signup-form');
-            
-            if(type === 'signup') {
-                login.style.display = 'none';
-                signup.style.display = 'block';
+        function login() {
+            const user = document.getElementById('user').value;
+            if(user === "") {
+                alert("Please enter a username!");
             } else {
-                signup.style.display = 'none';
-                login.style.display = 'block';
+                document.getElementById('auth-box').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                document.body.style.alignItems = 'flex-start';
             }
-        }
-
-        function handleAccess() {
-            alert("Success! Moving to the next step soon.");
         }
     </script>
 </body>
