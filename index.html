@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Digital Dashboard | Pro</title>
+    <title>Welcome to My Space</title>
     <style>
         * {
             margin: 0;
@@ -13,199 +13,90 @@
         }
 
         body {
-            background: #0b0e11;
-            color: white;
-            min-height: 100vh;
-        }
-
-        /* --- Auth Section (Centered) --- */
-        #auth-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            color: white;
+            overflow: hidden;
         }
 
-        .auth-container {
+        .welcome-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
-            border-radius: 25px;
-            padding: 40px;
-            width: 90%;
-            max-width: 380px;
-            text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        input {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 15px;
-            background: #1e2329;
-            border: 1px solid #2b3139;
-            border-radius: 12px;
-            color: white;
-            outline: none;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 14px;
-            background: #f0b90b;
-            color: black;
-            border: none;
-            border-radius: 12px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* --- Main Dashboard Layout --- */
-        #dashboard {
-            display: none;
-            flex-direction: column; /* Mobile first */
-            min-height: 100vh;
-        }
-
-        /* Desktop Sidebar (Only for wide screens) */
-        @media (min-width: 769px) {
-            #dashboard { flex-direction: row; }
-            .sidebar { width: 260px; height: 100vh; position: sticky; top: 0; }
-        }
-
-        .sidebar {
-            background: #181a20;
-            padding: 25px;
-            border-right: 1px solid #2b3139;
-        }
-
-        .sidebar h2 { color: #f0b90b; font-size: 22px; margin-bottom: 30px; }
-
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .card {
-            background: #1e2329;
-            padding: 20px;
-            border-radius: 20px;
-            border: 1px solid #2b3139;
-        }
-
-        .card p { font-size: 20px; font-weight: bold; color: #f0b90b; margin-top: 5px; }
-
-        /* --- Professional Footer --- */
-        .footer {
-            margin-top: auto;
-            padding: 30px 10px;
+            border-radius: 30px;
+            padding: 50px 30px;
             text-align: center;
-            color: #5e6673;
-            font-size: 12px;
-            border-top: 1px solid #2b3139;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-out;
         }
 
-        .footer span { color: #f0b90b; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        /* Mobile specific adjustments */
-        @media (max-width: 768px) {
-            .sidebar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
-            .sidebar h2 { margin-bottom: 0; }
-            .nav-links { display: none; } /* Hide menu on mobile header */
+        .icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #60a5fa, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .explore-btn {
+            background: white;
+            color: #0f172a;
+            padding: 12px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .explore-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Auth View -->
-    <div id="auth-section">
-        <div class="auth-container" id="auth-box">
-            <h2 style="color:#f0b90b; margin-bottom:10px;">Global Portal</h2>
-            <p style="color:#848e9c; font-size:14px; margin-bottom:25px;">Verified Access Required</p>
-            
-            <div id="login-form">
-                <input type="text" placeholder="Username" id="user-input">
-                <input type="password" placeholder="Password">
-                <button class="btn" onclick="goDash()">Secure Login</button>
-                <p style="margin-top:20px; font-size:13px; color:#848e9c;">
-                    Don't have access? <span style="color:#f0b90b; cursor:pointer;" onclick="toggleAuth()">Request Access</span>
-                </p>
-            </div>
+    <div class="welcome-card">
+        <div class="icon">✨</div>
+        <h1>Welcome!</h1>
+        <p>Thank you for visiting my website for the first time. It is a pleasure to have you here. I hope you enjoy exploring my projects.</p>
+        
+        <a href="#" class="explore-btn" onclick="alert('Stay tuned! Content coming soon.')">Explore Now</a>
 
-            <div id="reg-form" style="display:none;">
-                <input type="text" placeholder="Full Name">
-                <input type="email" placeholder="Work Email">
-                <button class="btn" onclick="goDash()">Register</button>
-                <p style="margin-top:20px; font-size:13px; color:#848e9c;">
-                    Already verified? <span style="color:#f0b90b; cursor:pointer;" onclick="toggleAuth()">Sign In</span>
-                </p>
-            </div>
+        <div class="footer">
+            © 2026 GLOBAL QUANTIFIER. ALL RIGHTS RESERVED.
         </div>
     </div>
 
-    <!-- Professional Dashboard View -->
-    <div id="dashboard">
-        <div class="sidebar">
-            <h2>GLOBAL Q<span>.</span></h2>
-            <div class="nav-links">
-                <p style="color:#848e9c; margin-bottom:15px;">Dashboard</p>
-                <p style="color:#848e9c; margin-bottom:15px;">Marketplace</p>
-            </div>
-            <p style="color:#f6465d; cursor:pointer; font-size:14px;" onclick="location.reload()">Logout</p>
-        </div>
-
-        <div class="main-content">
-            <h2 style="font-size: 18px;">Account Overview</h2>
-            
-            <div class="stats-grid">
-                <div class="card">
-                    <small style="color:#848e9c;">Net Asset Value</small>
-                    <p>$14,250.00</p>
-                </div>
-                <div class="card">
-                    <small style="color:#848e9c;">Pending Bids</small>
-                    <p>08</p>
-                </div>
-            </div>
-
-            <div style="margin-top:25px; background:#181a20; padding:20px; border-radius:20px;">
-                <h3 style="font-size:15px; margin-bottom:15px;">System Verification</h3>
-                <p style="font-size:13px; color:#0ecb81;">● All security protocols assessed and active.</p>
-            </div>
-
-            <!-- Footer area as requested -->
-            <div class="footer">
-                <p>© 2026 GLOBAL QUANTIFIER. All Rights Reserved.</p>
-                <p style="margin-top:5px;">System Security <span>Assessed</span> & Encrypted.</p>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function toggleAuth() {
-            const login = document.getElementById('login-form');
-            const reg = document.getElementById('reg-form');
-            if(login.style.display === 'none') {
-                login.style.display = 'block';
-                reg.style.display = 'none';
-            } else {
-                login.style.display = 'none';
-                reg.style.display = 'block';
-            }
-        }
-
-        function goDash() {
-            document.getElementById('auth-section').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'flex';
-        }
-    </script>
 </body>
 </html>
