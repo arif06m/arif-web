@@ -21,7 +21,7 @@
             align-items: center;
         }
 
-        /* --- Auth Section (Sign Up / Login) --- */
+        /* --- Auth Section --- */
         .auth-container {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
@@ -31,6 +31,7 @@
             max-width: 400px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
         }
 
         h2 { margin-bottom: 25px; color: #f0b90b; }
@@ -42,6 +43,7 @@
             border: 1px solid #474d57;
             border-radius: 8px;
             color: white;
+            outline: none;
         }
 
         .btn {
@@ -53,6 +55,7 @@
             border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
+            margin-top: 5px;
         }
 
         /* --- Dashboard Layout --- */
@@ -60,10 +63,8 @@
             display: none;
             width: 100%;
             height: 100vh;
-            display: flex; /* Flex used for Sidebar + Main Content */
         }
 
-        /* Sidebar */
         .sidebar {
             width: 240px;
             background: #181a20;
@@ -83,7 +84,6 @@
         }
         .nav-item:hover, .nav-item.active { color: white; background: #2b3139; border-radius: 10px; }
 
-        /* Main Content */
         .main-panel {
             flex: 1;
             padding: 30px;
@@ -135,19 +135,32 @@
 
     <!-- Auth Box -->
     <div class="auth-container" id="auth-box">
-        <h2 id="auth-title">Global Access</h2>
-        <div id="auth-fields">
-            <input type="text" placeholder="Username" id="username">
+        <!-- Sign In Form -->
+        <div id="login-form">
+            <h2>Global Access</h2>
+            <input type="text" placeholder="Username" id="login-username">
             <input type="password" placeholder="Password">
-            <button class="btn" onclick="enterDashboard()">Sign In</button>
+            <button class="btn" onclick="enterDashboard('login-username')">Sign In</button>
             <p style="margin-top:15px; font-size:12px; color:#848e9c;">
-                Don't have an account? <span style="color:#f0b90b; cursor:pointer;">Register</span>
+                Don't have an account? <span style="color:#f0b90b; cursor:pointer; font-weight:bold;" onclick="toggleAuth('signup')">Register</span>
+            </p>
+        </div>
+
+        <!-- Register Form -->
+        <div id="signup-form" style="display: none;">
+            <h2>Register</h2>
+            <input type="text" placeholder="Full Name">
+            <input type="text" placeholder="Desired Username" id="reg-username">
+            <input type="password" placeholder="Create Password">
+            <button class="btn" onclick="enterDashboard('reg-username')">Create Account</button>
+            <p style="margin-top:15px; font-size:12px; color:#848e9c;">
+                Already have an account? <span style="color:#f0b90b; cursor:pointer; font-weight:bold;" onclick="toggleAuth('login')">Sign In</span>
             </p>
         </div>
     </div>
 
-    <!-- Global Style Dashboard -->
-    <div id="dashboard" style="display: none;">
+    <!-- Dashboard -->
+    <div id="dashboard">
         <div class="sidebar">
             <h2>GLOBAL Q.</h2>
             <div class="nav-item active">Dashboard</div>
@@ -185,26 +198,11 @@
                 <h3>Recent Transactions</h3>
                 <table>
                     <thead>
-                        <tr>
-                            <th>Asset Name</th>
-                            <th>Status</th>
-                            <th>Price</th>
-                            <th>Time</th>
-                        </tr>
+                        <tr><th>Asset Name</th><th>Status</th><th>Price</th><th>Time</th></tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Arif Pyramid #19</td>
-                            <td style="color:#0ecb81;">Completed</td>
-                            <td>0.5 ETH</td>
-                            <td>2h ago</td>
-                        </tr>
-                        <tr>
-                            <td>TMCNFT Stake</td>
-                            <td style="color:#f0b90b;">Pending</td>
-                            <td>$200.00</td>
-                            <td>5h ago</td>
-                        </tr>
+                        <tr><td>Arif Pyramid #19</td><td style="color:#0ecb81;">Completed</td><td>0.5 ETH</td><td>2h ago</td></tr>
+                        <tr><td>TMCNFT Stake</td><td style="color:#f0b90b;">Pending</td><td>$200.00</td><td>5h ago</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -212,14 +210,27 @@
     </div>
 
     <script>
-        function enterDashboard() {
-            const user = document.getElementById('username').value;
+        function toggleAuth(type) {
+            const login = document.getElementById('login-form');
+            const signup = document.getElementById('signup-form');
+            if(type === 'signup') {
+                login.style.display = 'none';
+                signup.style.display = 'block';
+            } else {
+                signup.style.display = 'none';
+                login.style.display = 'block';
+            }
+        }
+
+        function enterDashboard(inputId) {
+            const user = document.getElementById(inputId).value;
             if(user === "") {
-                alert("Please enter a username to proceed.");
+                alert("Please fill in the details!");
             } else {
                 document.getElementById('auth-box').style.display = 'none';
-                document.getElementById('dashboard').style.display = 'flex';
-                document.body.style.display = 'block'; // Reset flex center
+                const dash = document.getElementById('dashboard');
+                dash.style.display = 'flex';
+                document.body.style.display = 'block'; 
             }
         }
     </script>
