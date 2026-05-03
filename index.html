@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Dashboard Portal</title>
+    <title>Arif's Premium Portal</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         body {
@@ -22,7 +22,7 @@
             overflow-x: hidden;
         }
 
-        /* --- Auth Section --- */
+        /* --- Auth Container --- */
         .auth-container {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(20px);
@@ -33,7 +33,7 @@
             max-width: 400px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             text-align: center;
-            transition: 0.5s ease;
+            transition: all 0.5s ease;
         }
 
         h2 { font-size: 26px; margin-bottom: 20px; color: #60a5fa; }
@@ -60,17 +60,29 @@
             transition: 0.3s;
         }
 
+        .toggle-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .toggle-link span {
+            color: #60a5fa;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
         /* --- Dashboard Section --- */
         #dashboard {
             display: none;
             width: 100%;
             max-width: 1000px;
             padding: 20px;
-            animation: fadeIn 0.8s ease forwards;
+            animation: slideUp 0.8s ease forwards;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -95,67 +107,67 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 25px;
             border-radius: 25px;
-            text-align: left;
         }
-
-        .stat-card h3 { color: rgba(255, 255, 255, 0.6); font-size: 14px; margin-bottom: 10px; }
-        .stat-card p { font-size: 24px; font-weight: bold; color: #60a5fa; }
     </style>
 </head>
 <body>
 
-    <!-- Login Form Section -->
+    <!-- Auth Box with Switch Option -->
     <div class="auth-container" id="auth-box">
-        <h2>Member Portal</h2>
-        <p style="margin-bottom: 20px; color: rgba(255,255,255,0.5);">Please sign in to continue</p>
-        <input type="text" id="user" placeholder="Username">
-        <input type="password" placeholder="Password">
-        <button class="btn" onclick="login()">Login</button>
+        <div id="login-form">
+            <h2>Member Portal</h2>
+            <p style="margin-bottom: 20px; color: rgba(255,255,255,0.5);">Welcome back!</p>
+            <input type="text" placeholder="Username" id="login-user">
+            <input type="password" placeholder="Password">
+            <button class="btn" onclick="handleLogin()">Login</button>
+            <p class="toggle-link">New here? <span onclick="toggleAuth('signup')">Create Account</span></p>
+        </div>
+
+        <div id="signup-form" style="display: none;">
+            <h2>Register</h2>
+            <p style="margin-bottom: 20px; color: rgba(255,255,255,0.5);">Join our community</p>
+            <input type="text" placeholder="Full Name">
+            <input type="email" placeholder="Email Address">
+            <input type="password" placeholder="Password">
+            <button class="btn" onclick="handleLogin()">Sign Up</button>
+            <p class="toggle-link">Already have an account? <span onclick="toggleAuth('login')">Login</span></p>
+        </div>
     </div>
 
-    <!-- Professional Dashboard Section -->
+    <!-- Dashboard (Initialy Hidden) -->
     <div id="dashboard">
         <div class="nav-bar">
-            <h3>Welcome, User</h3>
+            <h3>Hello, Developer</h3>
             <button class="btn" style="width: auto; padding: 10px 20px;" onclick="location.reload()">Logout</button>
         </div>
-
         <div class="stats-grid">
-            <div class="stat-card">
-                <h3>Total Visitors</h3>
-                <p>1,240</p>
-            </div>
-            <div class="stat-card">
-                <h3>Active Projects</h3>
-                <p>12</p>
-            </div>
-            <div class="stat-card">
-                <h3>New Messages</h3>
-                <p>5</p>
-            </div>
-            <div class="stat-card">
-                <h3>System Status</h3>
-                <p style="color: #4ade80;">Online</p>
-            </div>
+            <div class="stat-card"><h3>Visitors</h3><p style="font-size: 24px; color: #60a5fa;">2,500</p></div>
+            <div class="stat-card"><h3>Active Site</h3><p style="font-size: 24px; color: #60a5fa;">Online</p></div>
         </div>
-
         <div style="margin-top: 30px; background: rgba(255,255,255,0.03); padding: 30px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1);">
-            <h2 style="color: white; font-size: 20px;">Recent Activity</h2>
-            <p style="color: rgba(255,255,255,0.6); margin-top: 10px;">• Dashboard successfully loaded.</p>
-            <p style="color: rgba(255,255,255,0.6); margin-top: 5px;">• Security protocols are active.</p>
+            <h2>Recent Activity</h2>
+            <p style="color: rgba(255,255,255,0.6); margin-top: 10px;">• Dashboard has been updated to include registration.</p>
         </div>
     </div>
 
     <script>
-        function login() {
-            const user = document.getElementById('user').value;
-            if(user === "") {
-                alert("Please enter a username!");
+        function toggleAuth(type) {
+            const login = document.getElementById('login-form');
+            const signup = document.getElementById('signup-form');
+            if(type === 'signup') {
+                login.style.display = 'none';
+                signup.style.display = 'block';
             } else {
-                document.getElementById('auth-box').style.display = 'none';
-                document.getElementById('dashboard').style.display = 'block';
-                document.body.style.alignItems = 'flex-start';
+                signup.style.display = 'none';
+                login.style.display = 'block';
             }
+        }
+
+        function handleLogin() {
+            document.getElementById('auth-box').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            document.body.style.alignItems = 'flex-start';
+            document.body.style.paddingTop = '50px';
         }
     </script>
 </body>
